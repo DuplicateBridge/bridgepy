@@ -9,6 +9,29 @@ from IPython import embed
 
 def test_deals(deals:np.ndarray, n1:np.ndarray,
                query:list):
+    """
+    Test the deals based on the given query.
+
+    Args:
+        deals (np.ndarray): Array of deals.
+            shape = (n_deals, n_cards)
+        n1 (np.ndarray): Array of n1, the number of cards in hand1.
+            shape = (n_deals,) 
+        query (list): List of queries.
+            Each item in this list has the format
+            [card, min_n1, max_n1, hand]
+            where:
+                card (int): Card to query
+                min_n1 (int): Minimum number of card in hand
+                max_n1 (int): Maximum number of card in hand
+                hand (int): 1 for hand1, 2 for hand2
+            Items in the top level of the list use & logic.
+            Items in the second level of the list use | logic.
+
+    Returns:
+        np.ndarray: Boolean array indicating which deals pass the query.
+            shape = (n_deals,)
+    """
 
     # Slice
     final = np.ones(deals.shape[0], dtype=bool)
@@ -35,6 +58,20 @@ def test_deals(deals:np.ndarray, n1:np.ndarray,
     return final
 
 def parse_query(query:list):
+    """
+    Parses a query list and returns a dictionary.
+
+    Args:
+        query (list): A list containing card, min_n, max_n, and hand.
+
+    Returns:
+        dict: A dictionary containing the parsed values.
+
+    Example:
+        >>> query = ['A', 2, 5, 'Spades']
+        >>> parse_query(query)
+        {'card': 'A', 'min_n': 2, 'max_n': 5, 'hand': 'Spades'}
+    """
     # Parse
     card, min_n, max_n, hand = query
     # Build a dict
@@ -47,6 +84,20 @@ def parse_query(query:list):
 
 def query_deals(deals:np.ndarray, n1:np.ndarray,
                qdict:dict):
+    """
+    Query the deals based on specified criteria.
+
+    Args:
+        deals (np.ndarray): Array of deals.
+            shape = (n_deals, n_cards)
+        n1 (np.ndarray): Array of lengths for the first hand.
+            shape = (n_deals,)
+        qdict (dict): Dictionary containing query criteria.
+
+    Returns:
+        np.ndarray: Array of boolean values indicating whether each deal meets the query criteria.
+            shape = (n_deals,)
+    """
 
     # Prep
     ntot = deals.shape[1]
@@ -69,7 +120,6 @@ def query_deals(deals:np.ndarray, n1:np.ndarray,
 
     # Query
     in_hand = [qdict['card'] in hand for hand in hands]
-    #embed(header='assess.query_deals 48')
 
     # Finish assessment
     assess = np.zeros(deals.shape[0], dtype=bool)
