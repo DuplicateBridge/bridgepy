@@ -7,11 +7,11 @@ from setuptools import setup, find_packages
 # Begin setup
 setup_keywords = dict()
 setup_keywords['name'] = 'bridge'
-setup_keywords['description'] = 'Bridge Emulator'
+setup_keywords['description'] = 'Code for Duplicate Bridge'
 setup_keywords['author'] = 'J Xavier Prochaska et al.'
 setup_keywords['author_email'] = 'xavier@ucolick.org'
 setup_keywords['license'] = 'BSD'
-setup_keywords['url'] = 'https://github.com/profxj/bridge'
+setup_keywords['url'] = 'https://github.com/DuplicateBridge/bridgepy'
 setup_keywords['version'] = '0.1.dev0'
 # Use README.rst as long_description.
 setup_keywords['long_description'] = ''
